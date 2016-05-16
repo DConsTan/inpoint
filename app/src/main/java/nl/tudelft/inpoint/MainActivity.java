@@ -1,5 +1,6 @@
 package nl.tudelft.inpoint;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -42,7 +43,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        initializeGlobals();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new TrainingFragment()).commit();
+
         setTitle("Training");
     }
 
@@ -100,5 +104,11 @@ public class MainActivity extends AppCompatActivity
 
     public void setTitle(CharSequence title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    private void initializeGlobals() {
+        Resources resource = getResources();
+        Globals.mapDefaultColor = resource.getColor(R.color.mapDefault);
+        Globals.mapSelectedColor = resource.getColor(R.color.mapSelected);
     }
 }
