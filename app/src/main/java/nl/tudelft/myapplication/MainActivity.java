@@ -84,12 +84,18 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_localization) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new LocalizationFragment()).commit();
+            setTitle("Localization");
         } else if (id == R.id.nav_training) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new TrainingFragment()).commit();
+            setTitle("Training");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
     }
 }
