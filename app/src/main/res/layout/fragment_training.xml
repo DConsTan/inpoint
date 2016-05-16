@@ -352,4 +352,22 @@
         android:textColor="@color/abc_primary_text_material_dark"
         android:textSize="10pt" />
 
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:id="@+id/textView3"
+        android:layout_row="3"
+        android:layout_column="9"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_row="4"
+        android:layout_column="9"
+        android:layout_marginBottom="10dp" />
+
 </GridLayout>

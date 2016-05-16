@@ -1,6 +1,8 @@
 package nl.tudelft.inpoint;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,12 @@ public class TrainingFragment extends Fragment {
         Globals.selectedRoom = (TextView) getView().findViewById(R.id.room1);
         Globals.selectedRoom.setBackgroundColor(getResources().getColor(R.color.mapSelected));
         setRoomControllers();
+        setRecordController();
+    }
+
+    private void setRecordController() {
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fab);
+        button.setOnClickListener(new RecordController(button));
     }
 
     private void setRoomControllers() {
