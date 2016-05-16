@@ -3,4 +3,6 @@
     <color name="colorPrimary">#303030</color>
     <color name="colorPrimaryDark">#303030</color>
     <color name="colorAccent">#016191</color>
+    <color name="mapDefault">#016191</color>
+    <color name="mapSelected">#3DCFFF</color>
 </resources>
