@@ -1,4 +1,4 @@
-package nl.tudelft.myapplication;
+package nl.tudelft.inpoint;
 
 import org.junit.Test;
 

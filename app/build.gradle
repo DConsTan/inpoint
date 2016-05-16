@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "nl.tudelft.myapplication"
+        applicationId "nl.tudelft.inpoint"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

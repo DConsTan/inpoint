@@ -1,4 +1,4 @@
-package nl.tudelft.myapplication;
+package nl.tudelft.inpoint;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

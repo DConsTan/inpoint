@@ -1,4 +1,4 @@
-package nl.tudelft.myapplication;
+package nl.tudelft.inpoint;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
