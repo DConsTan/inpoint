@@ -1,6 +1,9 @@
 package nl.tudelft.inpoint;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -79,5 +82,7 @@ public class MainActivity extends AppCompatActivity
         Resources resource = getResources();
         Globals.mapDefaultColor = resource.getColor(R.color.mapDefault);
         Globals.mapSelectedColor = resource.getColor(R.color.mapSelected);
+        Globals.wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        Globals.db = new SQLiteHelper(this);
     }
 }
