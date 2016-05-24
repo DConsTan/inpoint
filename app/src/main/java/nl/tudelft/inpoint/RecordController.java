@@ -37,7 +37,7 @@ public class RecordController implements View.OnClickListener {
 
         for (String mac : Globals.RSS_VALUES.keySet()) {
             String table = SQLiteHelper.encodeMAC(mac);
-            Globals.DATABASE.createTable(table);
+            Globals.DATABASE.createAPTable(table);
             Globals.DATABASE.updateRSSValues(table, roomID, Globals.RSS_VALUES.get(mac));
         }
     }

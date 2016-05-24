@@ -20,6 +20,7 @@ public class LocalizationFragment extends Fragment {
         super.onResume();
         initRooms();
         setLocalizeController();
+        setResetListener();
     }
 
     private void initRooms() {
@@ -28,6 +29,10 @@ public class LocalizationFragment extends Fragment {
             int id = Globals.RESOURCES.getIdentifier("room" + i, "id", Globals.PACKAGE_NAME);
             setRoom((TextView) getView().findViewById(id), probability);
         }
+        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
+            Globals.POSTERIOR[i] = probability;
+        }
+        Globals.MAX_PRIOR = probability;
     }
 
     private void setRoom(TextView room, float probability) {
@@ -39,6 +44,11 @@ public class LocalizationFragment extends Fragment {
     private void setLocalizeController() {
         FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabLocalize);
         button.setOnClickListener(new LocalizeController(getView()));
+    }
+
+    private void setResetListener() {
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabReset);
+        button.setOnClickListener(new ResetController(getView()));
     }
 
 }

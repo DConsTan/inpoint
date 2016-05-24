@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity
 
         initializeGlobals();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new TrainingFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new LocalizationFragment()).commit();
 
-        setTitle("Training");
+        setTitle("Localization");
     }
 
     @Override

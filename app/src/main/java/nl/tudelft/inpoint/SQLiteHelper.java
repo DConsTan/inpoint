@@ -31,7 +31,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createTable(String name) {
+    public void createAPTable(String name) {
         TABLES.add(name);
         SQLiteDatabase db = getWritableDatabase();
         String query= "CREATE TABLE IF NOT EXISTS " + name + " (room_id INTEGER PRIMARY KEY";
@@ -39,6 +39,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             query += ", rss" + i + " REAL DEFAULT 0";
         query += ");";
         db.execSQL(query);
+//        populateTable(name);
+    }
+
+    public void populateTable(String table) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
+            values.put("room_id", i);
+            for (int j = 10; j <= 100; j++)
+                values.put("rss" + j, 0);
+            db.delete(table, "room_id = " + i, null);
+            db.insert(table, null, values);
+        }
+        db.close();
     }
 
     public void updateRSSValues(String table, int roomID, int[] rss) {
@@ -70,6 +84,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         for (int i = 0; i < 92; i++) {
             Log.d("Column: ", cursor.getString(i));
         }
+    }
+
+    public float[] getRSSProbabilities(String table, int rss) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = { "room_id", "rss" + rss };
+        Cursor cursor = db.query(table, columns, null, null, null, null, null);
+        float[] probabilities = new float[Globals.NUMBER_OF_ROOMS + 1];
+        if (cursor.getCount() == 0) return null;
+        while (cursor.moveToNext()) {
+            int roomID = cursor.getInt(cursor.getColumnIndex("room_id"));
+            float p = cursor.getFloat(cursor.getColumnIndex("rss" + rss));
+            probabilities[roomID] = p;
+        }
+        return probabilities;
     }
 
     public float[] toPMF(int[] rss) {

@@ -18,6 +18,8 @@ public class Globals {
     public static int NUMBER_OF_ROOMS = 21;
     public static Resources RESOURCES;
     public static String PACKAGE_NAME;
+    public static float[] POSTERIOR = new float[NUMBER_OF_ROOMS + 1];
+    public static float MAX_PRIOR;
 
     public static int getColor(int i) {
         if (i == 0) return R.color.mapDefault;
