@@ -9,20 +9,20 @@ import java.util.List;
 class RSSRecorder implements Runnable {
     @Override
     public void run() {
-        while (Globals.recording) {
-            if (Globals.wifiManager.startScan()) {
-                List<ScanResult> list = Globals.wifiManager.getScanResults();
+        while (Globals.RECORDING) {
+            if (Globals.WIFI_MANAGER.startScan()) {
+                List<ScanResult> list = Globals.WIFI_MANAGER.getScanResults();
 
                 for (ScanResult r : list) {
                     int level = Math.abs(r.level);
-                    if (!Globals.rssValues.containsKey(r.BSSID)) {
+                    if (!Globals.RSS_VALUES.containsKey(r.BSSID)) {
                         int[] rss = new int[101];
-                        Globals.rssValues.put(r.BSSID, rss);
+                        Globals.RSS_VALUES.put(r.BSSID, rss);
                     }
-                    int[] rss = Globals.rssValues.get(r.BSSID);
+                    int[] rss = Globals.RSS_VALUES.get(r.BSSID);
                     Log.i(r.BSSID, Arrays.toString(rss));
                     rss[level]++;
-                    Globals.rssValues.put(r.BSSID, rss);
+                    Globals.RSS_VALUES.put(r.BSSID, rss);
                 }
 
                 try {

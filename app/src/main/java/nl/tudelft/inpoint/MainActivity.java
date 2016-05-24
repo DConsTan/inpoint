@@ -2,20 +2,15 @@ package nl.tudelft.inpoint;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
@@ -80,9 +75,11 @@ public class MainActivity extends AppCompatActivity
 
     private void initializeGlobals() {
         Resources resource = getResources();
-        Globals.mapDefaultColor = resource.getColor(R.color.mapDefault);
-        Globals.mapSelectedColor = resource.getColor(R.color.mapSelected);
-        Globals.wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        Globals.db = new SQLiteHelper(this);
+        Globals.MAP_DEFAULT_COLOR = resource.getColor(R.color.mapDefault);
+        Globals.MAP_SELECTED_COLOR = resource.getColor(R.color.mapSelected);
+        Globals.WIFI_MANAGER = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        Globals.DATABASE = new SQLiteHelper(this);
+        Globals.RESOURCES = getResources();
+        Globals.PACKAGE_NAME = getPackageName();
     }
 }

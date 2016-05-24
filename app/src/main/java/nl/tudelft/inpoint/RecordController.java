@@ -18,27 +18,27 @@ public class RecordController implements View.OnClickListener {
      }
 
     private void toggleIcon() {
-        if (Globals.recording) {
+        if (Globals.RECORDING) {
             button.setImageResource(R.drawable.ic_play_arrow);
-            button.setBackgroundTintList(ColorStateList.valueOf(Globals.mapDefaultColor));
+            button.setBackgroundTintList(ColorStateList.valueOf(Globals.MAP_DEFAULT_COLOR));
             storeRSStoDatabase();
         } else {
-            Globals.rssValues.clear();
+            Globals.RSS_VALUES.clear();
             button.setImageResource(R.drawable.ic_pause);
-            button.setBackgroundTintList(ColorStateList.valueOf(Globals.mapSelectedColor));
+            button.setBackgroundTintList(ColorStateList.valueOf(Globals.MAP_SELECTED_COLOR));
             Thread t = new Thread(new RSSRecorder());
             t.start();
         }
-        Globals.recording = !Globals.recording;
+        Globals.RECORDING = !Globals.RECORDING;
     }
 
     private void storeRSStoDatabase() {
-        int roomID = Integer.parseInt(Globals.selectedRoom.getText().toString());
+        int roomID = Integer.parseInt(Globals.SELECTED_ROOM.getText().toString());
 
-        for (String mac : Globals.rssValues.keySet()) {
+        for (String mac : Globals.RSS_VALUES.keySet()) {
             String table = SQLiteHelper.encodeMAC(mac);
-            Globals.db.createTable(table);
-            Globals.db.updateRSSValues(table, roomID, Globals.rssValues.get(mac));
+            Globals.DATABASE.createTable(table);
+            Globals.DATABASE.updateRSSValues(table, roomID, Globals.RSS_VALUES.get(mac));
         }
     }
 }

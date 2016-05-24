@@ -23,24 +23,11 @@ public class LocalizationFragment extends Fragment {
     }
 
     private void initRooms() {
-        float probability = 1f / 17;
-        setRoom((TextView) getView().findViewById(R.id.room1), probability);
-        setRoom((TextView) getView().findViewById(R.id.room2), probability);
-        setRoom((TextView) getView().findViewById(R.id.room3), probability);
-        setRoom((TextView) getView().findViewById(R.id.room4), probability);
-        setRoom((TextView) getView().findViewById(R.id.room5), probability);
-        setRoom((TextView) getView().findViewById(R.id.room6), probability);
-        setRoom((TextView) getView().findViewById(R.id.room7), probability);
-        setRoom((TextView) getView().findViewById(R.id.room8), probability);
-        setRoom((TextView) getView().findViewById(R.id.room9), probability);
-        setRoom((TextView) getView().findViewById(R.id.room10), probability);
-        setRoom((TextView) getView().findViewById(R.id.room11), probability);
-        setRoom((TextView) getView().findViewById(R.id.room12), probability);
-        setRoom((TextView) getView().findViewById(R.id.room13), probability);
-        setRoom((TextView) getView().findViewById(R.id.room14), probability);
-        setRoom((TextView) getView().findViewById(R.id.room15), probability);
-        setRoom((TextView) getView().findViewById(R.id.room16), probability);
-        setRoom((TextView) getView().findViewById(R.id.room17), probability);
+        float probability = 1f / Globals.NUMBER_OF_ROOMS;
+        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
+            int id = Globals.RESOURCES.getIdentifier("room" + i, "id", Globals.PACKAGE_NAME);
+            setRoom((TextView) getView().findViewById(id), probability);
+        }
     }
 
     private void setRoom(TextView room, float probability) {

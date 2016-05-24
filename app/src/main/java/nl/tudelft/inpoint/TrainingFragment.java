@@ -19,8 +19,8 @@ public class TrainingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Globals.selectedRoom = (TextView) getView().findViewById(R.id.room1);
-        Globals.selectedRoom.setBackgroundColor(getResources().getColor(R.color.mapSelected));
+        Globals.SELECTED_ROOM = (TextView) getView().findViewById(R.id.room1);
+        Globals.SELECTED_ROOM.setBackgroundColor(getResources().getColor(R.color.mapSelected));
         setRoomControllers();
         setRecordController();
     }
@@ -34,7 +34,7 @@ public class TrainingFragment extends Fragment {
         TextView room;
         Resources r = getResources();
         String name = getActivity().getPackageName();
-        for (int i = 1; i <= 21; i++) {
+        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
             int id = r.getIdentifier("room" + i, "id", name);
             room = (TextView) getView().findViewById(id);
             room.setOnClickListener(new RoomController(room));
