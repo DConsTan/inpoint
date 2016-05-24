@@ -1,8 +1,8 @@
 package nl.tudelft.inpoint;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,40 +32,13 @@ public class TrainingFragment extends Fragment {
 
     private void setRoomControllers() {
         TextView room;
-        room = (TextView) getView().findViewById(R.id.room1);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room2);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room3);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room4);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room5);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room6);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room7);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room8);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room9);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room10);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room11);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room12);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room13);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room14);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room15);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room16);
-        room.setOnClickListener(new RoomController(room));
-        room = (TextView) getView().findViewById(R.id.room17);
-        room.setOnClickListener(new RoomController(room));
+        Resources r = getResources();
+        String name = getActivity().getPackageName();
+        for (int i = 1; i <= 21; i++) {
+            int id = r.getIdentifier("room" + i, "id", name);
+            room = (TextView) getView().findViewById(id);
+            room.setOnClickListener(new RoomController(room));
+        }
     }
 
 

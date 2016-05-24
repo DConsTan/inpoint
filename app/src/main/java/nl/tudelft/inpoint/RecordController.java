@@ -22,7 +22,6 @@ public class RecordController implements View.OnClickListener {
             button.setImageResource(R.drawable.ic_play_arrow);
             button.setBackgroundTintList(ColorStateList.valueOf(Globals.mapDefaultColor));
             storeRSStoDatabase();
-//            Globals.db.readRSSValues("ap_00145c87fed8", 1);
         } else {
             Globals.rssValues.clear();
             button.setImageResource(R.drawable.ic_pause);
