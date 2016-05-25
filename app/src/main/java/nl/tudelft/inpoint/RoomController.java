@@ -7,16 +7,20 @@ import android.widget.TextView;
 public class RoomController implements View.OnClickListener {
 
     private TextView roomView;
+    private View view;
 
-    public RoomController(TextView roomID) {
+    public RoomController(View view, TextView roomID) {
+        this.view = view;
         this.roomView = roomID;
     }
 
     @Override
     public void onClick(View view) {
-        Globals.SELECTED_ROOM.setBackgroundColor(Globals.MAP_DEFAULT_COLOR);
-        Globals.SELECTED_ROOM = roomView;
-        Log.i("Room selection:", roomView.getText().toString());
-        roomView.setBackgroundColor(Globals.MAP_SELECTED_COLOR);
+        if (!Globals.RECORDING) {
+            Globals.SELECTED_ROOM.setBackgroundColor(Globals.MAP_DEFAULT_COLOR);
+            Globals.SELECTED_ROOM = roomView;
+            roomView.setBackgroundColor(Globals.MAP_SELECTED_COLOR);
+            ((TextView) this.view.findViewById(R.id.selectedRoom)).setText(roomView.getText());
+        }
     }
 }

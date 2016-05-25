@@ -1,7 +1,9 @@
 package nl.tudelft.inpoint;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.net.wifi.WifiManager;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -20,6 +22,9 @@ public class Globals {
     public static String PACKAGE_NAME;
     public static float[] POSTERIOR = new float[NUMBER_OF_ROOMS + 1];
     public static float MAX_PRIOR;
+    public static Activity ACTIVITY;
+    public static View VIEW;
+    public static int SAMPLE_COUNTER;
 
     public static int getColor(int i) {
         if (i == 0) return R.color.mapDefault;

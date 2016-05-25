@@ -32,14 +32,20 @@ public class LocalizeController implements View.OnClickListener {
                 if (probabilities != null) {
                     applyBayes(probabilities);
                     showPosterior();
-                    for (int j = 1; j <= Globals.NUMBER_OF_ROOMS; j++)
-                        Log.i("Room" + j, Globals.POSTERIOR[j] + "");
+                    for (int j = 1; j <= Globals.NUMBER_OF_ROOMS; j++) {
+                        Log.i("Probability " + j, probabilities[j] + "");
+                        Log.i("Room " + j, Globals.POSTERIOR[j] + "");
+                    }
                 }
             }
         }
     }
 
     private void applyBayes(float[] probabilities) {
+        float sum = 0;
+        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++)
+            sum += probabilities[i];
+        if (sum == 0) return;
         for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++)
             Globals.POSTERIOR[i] = Globals.POSTERIOR[i] * probabilities[i];
         normalizePosterior();

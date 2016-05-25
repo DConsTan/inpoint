@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class TrainingFragment extends Fragment {
 
     @Override
@@ -19,6 +22,8 @@ public class TrainingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Globals.ACTIVITY = getActivity();
+        Globals.VIEW = getView();
         Globals.SELECTED_ROOM = (TextView) getView().findViewById(R.id.room1);
         Globals.SELECTED_ROOM.setBackgroundColor(getResources().getColor(R.color.mapSelected));
         setRoomControllers();
@@ -37,10 +42,8 @@ public class TrainingFragment extends Fragment {
         for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
             int id = r.getIdentifier("room" + i, "id", name);
             room = (TextView) getView().findViewById(id);
-            room.setOnClickListener(new RoomController(room));
+            room.setOnClickListener(new RoomController(getView(), room));
         }
     }
-
-
 
 }
