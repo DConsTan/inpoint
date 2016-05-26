@@ -4,6 +4,10 @@ import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 public class RecordController implements View.OnClickListener {
 
     private FloatingActionButton button;
@@ -35,11 +39,15 @@ public class RecordController implements View.OnClickListener {
     private void storeRSStoDatabase() {
         int roomID = Integer.parseInt(Globals.SELECTED_ROOM.getText().toString());
 
-        for (String mac : Globals.RSS_VALUES.keySet()) {
+        Iterator iter = Globals.RSS_VALUES.keySet().iterator();
+        while (iter.hasNext()) {
+            String mac = (String) iter.next();
             String table = SQLiteHelper.encodeMAC(mac);
             Globals.DATABASE.createFrequencyTable(table);
             Globals.DATABASE.createGaussianTable(table);
             Globals.DATABASE.updateRSSFrequencies(table, roomID, Globals.RSS_VALUES.get(mac));
         }
+
+        Globals.DATABASE.filterAP();
     }
 }

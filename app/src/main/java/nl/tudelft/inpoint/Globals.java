@@ -6,7 +6,7 @@ import android.net.wifi.WifiManager;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Globals {
     public static TextView SELECTED_ROOM;
@@ -14,7 +14,7 @@ public class Globals {
     public static int MAP_SELECTED_COLOR;
     public static boolean RECORDING = false;
     public static final String DATABASE_NAME = "InPoint.sqlite";
-    public static volatile HashMap<String, int[]> RSS_VALUES = new HashMap<>();
+    public static ConcurrentHashMap<String, int[]> RSS_VALUES = new ConcurrentHashMap<>();
     public static WifiManager WIFI_MANAGER;
     public static SQLiteHelper DATABASE;
     public static int NUMBER_OF_ROOMS = 21;
@@ -25,6 +25,7 @@ public class Globals {
     public static Activity ACTIVITY;
     public static View VIEW;
     public static int SAMPLE_COUNTER;
+    public static float CONFIDENCE_INTERVAL = 0.40f;
 
     public static int getColor(int i) {
         if (i == 0) return R.color.mapDefault;

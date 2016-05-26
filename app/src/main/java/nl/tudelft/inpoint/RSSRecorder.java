@@ -32,7 +32,7 @@ class RSSRecorder extends Observable implements Runnable {
                         Globals.RSS_VALUES.put(r.BSSID, rss);
                     }
                     int[] rss = Globals.RSS_VALUES.get(r.BSSID);
-                    Log.i(r.BSSID, Arrays.toString(rss));
+//                    Log.i(r.BSSID, Arrays.toString(rss));
                     rss[level]++;
                     Globals.RSS_VALUES.put(r.BSSID, rss);
                 }
@@ -44,7 +44,7 @@ class RSSRecorder extends Observable implements Runnable {
                     }
                 });
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException ex) {
                     //
                 }

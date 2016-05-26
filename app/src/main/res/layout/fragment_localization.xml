@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:textAlignment="center">
 
     <TextView
         android:layout_width="64dp"
@@ -17,8 +18,11 @@
         android:layout_column="1"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="1"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textSize="9dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -44,8 +48,10 @@
         android:layout_column="4"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="2"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -103,8 +109,10 @@
         android:layout_column="11"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="3"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -130,8 +138,10 @@
         android:layout_column="0"
         android:layout_marginTop="5dp"
         android:background="@color/mapDefault"
-        android:text="4"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -142,8 +152,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="5"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -154,8 +166,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="6"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -166,8 +180,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="7"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -178,8 +194,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="8"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -190,8 +208,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="9"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -202,8 +222,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="10"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -214,8 +236,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="11"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -226,8 +250,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="12"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -238,8 +264,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="13"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -250,8 +278,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="14"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -262,8 +292,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="15"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -274,8 +306,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="16"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="64dp"
@@ -286,8 +320,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="17"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="60dp"
@@ -308,8 +344,10 @@
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
         android:layout_gravity="right"
-        android:text="18"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="31dp"
@@ -377,12 +415,14 @@
         android:id="@+id/room20"
         android:layout_row="2"
         android:layout_column="8"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
         android:layout_rowSpan="2"
-        android:text="20"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp"
+        android:singleLine="false" />
 
     <TextView
         android:layout_width="31dp"
@@ -420,12 +460,13 @@
         android:id="@+id/room21"
         android:layout_row="2"
         android:layout_column="12"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
         android:layout_rowSpan="2"
-        android:text="21"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="60dp"
@@ -446,17 +487,38 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:background="@color/mapDefault"
-        android:text="19"
-        android:textColor="@android:color/transparent" />
+        android:text="0"
+        android:textColor="@android:color/primary_text_dark"
+        android:textAlignment="center"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="60dp"
-        android:layout_height="20dp"
+        android:layout_height="15dp"
         android:id="@+id/textView57"
         android:layout_row="4"
         android:layout_column="13"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MAC 1:"
+        android:id="@+id/textView2"
+        android:layout_row="5"
+        android:layout_column="0"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/mac1"
+        android:layout_row="5"
+        android:layout_column="1"
+        android:layout_columnSpan="10"
+        android:textSize="10dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabReset"
@@ -467,7 +529,8 @@
         android:layout_column="11"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal|right"
-        android:layout_columnSpan="2" />
+        android:layout_columnSpan="2"
+        android:layout_rowSpan="3" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabLocalize"
@@ -477,6 +540,45 @@
         android:layout_row="5"
         android:layout_column="13"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:layout_rowSpan="3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MAC 2:"
+        android:id="@+id/textView6"
+        android:layout_row="6"
+        android:layout_column="0"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/mac2"
+        android:layout_row="6"
+        android:layout_column="1"
+        android:layout_columnSpan="10"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MAC 3:"
+        android:id="@+id/textView7"
+        android:layout_row="7"
+        android:layout_column="0"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/mac3"
+        android:layout_row="7"
+        android:layout_column="1"
+        android:layout_columnSpan="10"
+        android:textSize="10dp" />
 
 </GridLayout>
