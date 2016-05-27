@@ -25,7 +25,7 @@ public class Globals {
     public static Activity ACTIVITY;
     public static View VIEW;
     public static int SAMPLE_COUNTER;
-    public static float CONFIDENCE_INTERVAL = 0.40f;
+    public static float CONFIDENCE_INTERVAL = 0.20f;
 
     public static int getColor(int i) {
         if (i == 0) return R.color.mapDefault;

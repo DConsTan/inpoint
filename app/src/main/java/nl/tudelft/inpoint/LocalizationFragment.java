@@ -1,5 +1,7 @@
 package nl.tudelft.inpoint;
 
+import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -43,7 +45,11 @@ public class LocalizationFragment extends Fragment {
 
     private void setLocalizeController() {
         FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabLocalize);
-        button.setOnClickListener(new LocalizeController(getView()));
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        LocalizeController controller = new LocalizeController(getView());
+        getActivity().registerReceiver(controller, intentFilter);
+        button.setOnClickListener(controller);
     }
 
     private void setResetListener() {
