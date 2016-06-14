@@ -1,6 +1,8 @@
 package nl.tudelft.inpoint;
 
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
+import android.net.wifi.WifiManager;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
@@ -13,6 +15,7 @@ public class RecordController implements View.OnClickListener {
     private FloatingActionButton button;
 
     public RecordController(FloatingActionButton floatingActionButton) {
+        Globals.RECORDER = new RSSRecorder();
         this.button = floatingActionButton;
     }
 
@@ -26,11 +29,16 @@ public class RecordController implements View.OnClickListener {
             button.setImageResource(R.drawable.ic_play_arrow);
             button.setBackgroundTintList(ColorStateList.valueOf(Globals.MAP_DEFAULT_COLOR));
             storeRSStoDatabase();
+            Globals.ACTIVITY.unregisterReceiver(Globals.RECORDER);
         } else {
             Globals.RSS_VALUES.clear();
             button.setImageResource(R.drawable.ic_pause);
             button.setBackgroundTintList(ColorStateList.valueOf(Globals.MAP_SELECTED_COLOR));
-            Thread t = new Thread(new RSSRecorder());
+
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+            Globals.ACTIVITY.registerReceiver(Globals.RECORDER, intentFilter);
+            Thread t = new Thread(Globals.RECORDER);
             t.start();
         }
         Globals.RECORDING = !Globals.RECORDING;

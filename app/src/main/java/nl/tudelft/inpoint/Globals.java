@@ -26,10 +26,10 @@ public class Globals {
     public static View VIEW;
     public static int SAMPLE_COUNTER;
     public static float CONFIDENCE_INTERVAL = 0.20f;
+    public static RSSRecorder RECORDER;
 
     public static int getColor(int i) {
-        if (i == 0) return R.color.mapDefault;
-        if (i > 0 && i <= 100) return RESOURCES.getIdentifier("color" + i, "color", PACKAGE_NAME);
+        if (i >= 0 && i <= 100) return RESOURCES.getIdentifier("color" + i, "color", PACKAGE_NAME);
         return R.color.mapDefault;
     }
 }
