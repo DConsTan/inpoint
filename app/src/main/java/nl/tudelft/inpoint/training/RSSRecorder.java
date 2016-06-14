@@ -1,4 +1,4 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.training;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.List;
 
-class RSSRecorder extends BroadcastReceiver implements Runnable {
+import nl.tudelft.inpoint.Globals;
+import nl.tudelft.inpoint.R;
+
+public class RSSRecorder extends BroadcastReceiver implements Runnable {
 
     private Handler handler;
 

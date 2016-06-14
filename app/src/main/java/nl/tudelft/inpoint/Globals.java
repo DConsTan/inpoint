@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import nl.tudelft.inpoint.training.RSSRecorder;
+
 public class Globals {
     public static TextView SELECTED_ROOM;
     public static int MAP_DEFAULT_COLOR;
@@ -27,6 +29,9 @@ public class Globals {
     public static int SAMPLE_COUNTER;
     public static float CONFIDENCE_INTERVAL = 0.20f;
     public static RSSRecorder RECORDER;
+    public static int DIRECTION_ZERO;
+    public static int DIRECTION_CURRENT;
+    public static int DIRECTION;
 
     public static int getColor(int i) {
         if (i >= 0 && i <= 100) return RESOURCES.getIdentifier("color" + i, "color", PACKAGE_NAME);

@@ -1,7 +1,9 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.training;
 
 import android.view.View;
 import android.widget.TextView;
+
+import nl.tudelft.inpoint.Globals;
 
 public class ResetController implements View.OnClickListener {
 

@@ -13,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import nl.tudelft.inpoint.activity.ActivityTrainingFragment;
+import nl.tudelft.inpoint.localization.LocalizationFragment;
+import nl.tudelft.inpoint.training.TrainingFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,6 +66,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_training) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new TrainingFragment()).commit();
             setTitle("Training");
+        } else if (id == R.id.nav_activity_training) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new ActivityTrainingFragment()).commit();
+            setTitle("Activity Training");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

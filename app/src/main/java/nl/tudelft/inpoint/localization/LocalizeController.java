@@ -1,20 +1,21 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.localization;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import nl.tudelft.inpoint.Globals;
+import nl.tudelft.inpoint.SQLiteHelper;
 
 public class LocalizeController extends BroadcastReceiver implements View.OnClickListener {
 

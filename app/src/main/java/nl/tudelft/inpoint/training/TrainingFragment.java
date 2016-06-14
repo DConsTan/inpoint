@@ -1,4 +1,4 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.training;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Observable;
-import java.util.Observer;
+import nl.tudelft.inpoint.Globals;
+import nl.tudelft.inpoint.R;
+import nl.tudelft.inpoint.training.RecordController;
+import nl.tudelft.inpoint.training.RoomController;
 
 public class TrainingFragment extends Fragment {
 

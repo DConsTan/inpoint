@@ -1,8 +1,11 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.training;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import nl.tudelft.inpoint.Globals;
+import nl.tudelft.inpoint.R;
 
 public class RoomController implements View.OnClickListener {
 

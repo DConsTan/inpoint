@@ -1,4 +1,4 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.training;
 
 import android.content.IntentFilter;
 import android.content.res.ColorStateList;
@@ -9,6 +9,11 @@ import android.view.View;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+
+import nl.tudelft.inpoint.Globals;
+import nl.tudelft.inpoint.R;
+import nl.tudelft.inpoint.training.RSSRecorder;
+import nl.tudelft.inpoint.SQLiteHelper;
 
 public class RecordController implements View.OnClickListener {
 

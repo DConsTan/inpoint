@@ -1,6 +1,9 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.localization;
 
+import android.content.Context;
 import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import nl.tudelft.inpoint.Globals;
+import nl.tudelft.inpoint.R;
+import nl.tudelft.inpoint.training.ResetController;
 
 public class LocalizationFragment extends Fragment {
 
@@ -20,9 +27,12 @@ public class LocalizationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Globals.ACTIVITY = getActivity();
+        Globals.VIEW = getView();
         initRooms();
         setLocalizeController();
         setResetListener();
+        setDirectionListener();
     }
 
     private void initRooms() {
@@ -55,6 +65,18 @@ public class LocalizationFragment extends Fragment {
     private void setResetListener() {
         FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabReset);
         button.setOnClickListener(new ResetController(getView()));
+    }
+
+    private void setDirectionListener() {
+        SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        Sensor mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
+
+        DirectionListener directionListener = new DirectionListener();
+
+        mSensorManager.registerListener(directionListener, mOrientation, SensorManager.SENSOR_DELAY_UI);
+
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabDirection);
+        button.setOnClickListener(directionListener);
     }
 
 }

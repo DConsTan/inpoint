@@ -1,4 +1,4 @@
-package nl.tudelft.inpoint;
+package nl.tudelft.inpoint.localization;
 
 import android.net.wifi.ScanResult;
 
