@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 import nl.tudelft.inpoint.training.RSSRecorder;
@@ -32,9 +33,25 @@ public class Globals {
     public static int DIRECTION_ZERO;
     public static int DIRECTION_CURRENT;
     public static int DIRECTION;
+    public static ArrayList<Float> PREVIOUS_ACC = new ArrayList<>();
+    public static ArrayList<Float> ACC = new ArrayList<>();
+    public static boolean WALKING = false;
+    public static boolean RECORDING_MOTION = false;
 
     public static int getColor(int i) {
         if (i >= 0 && i <= 100) return RESOURCES.getIdentifier("color" + i, "color", PACKAGE_NAME);
         return R.color.mapDefault;
+    }
+
+    public static int getDirection() {
+        if (Globals.DIRECTION > 315 || Globals.DIRECTION <= 45) {
+            return 0; // East
+        } else if (Globals.DIRECTION > 45 && Globals.DIRECTION <= 135) {
+            return 1; // South
+        } else if (Globals.DIRECTION > 135 && Globals.DIRECTION <= 225) {
+            return 2; // West
+        } else {
+            return 3; // North
+        }
     }
 }

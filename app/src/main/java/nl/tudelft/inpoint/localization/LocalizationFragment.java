@@ -33,6 +33,8 @@ public class LocalizationFragment extends Fragment {
         setLocalizeController();
         setResetListener();
         setDirectionListener();
+        setActivityListener();
+        setMotionListener();
     }
 
     private void initRooms() {
@@ -69,14 +71,27 @@ public class LocalizationFragment extends Fragment {
 
     private void setDirectionListener() {
         SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        Sensor mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
+        Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor mMagnetic = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         DirectionListener directionListener = new DirectionListener();
 
-        mSensorManager.registerListener(directionListener, mOrientation, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(directionListener, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(directionListener, mMagnetic, SensorManager.SENSOR_DELAY_UI);
 
         FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabDirection);
         button.setOnClickListener(directionListener);
+    }
+
+    private void setActivityListener() {
+        SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(new ActivityListener(), mAccelerometer, mSensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    private void setMotionListener() {
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabMotion);
+        button.setOnClickListener(new MotionListener());
     }
 
 }
