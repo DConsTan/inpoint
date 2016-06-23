@@ -83,6 +83,7 @@ public class ActivityListener implements SensorEventListener {
         if (durationWalking > 3000) {
             TextView movedView = (TextView) Globals.VIEW.findViewById(R.id.movedView);
             movedView.setText(numberOfRoomsMoved + " " + Globals.getDirection());
+            moveProbabilities(numberOfRoomsMoved);
         }
     }
 
@@ -98,6 +99,7 @@ public class ActivityListener implements SensorEventListener {
                 for (int i = 17; i >= 5; i--) {
                     Globals.POSTERIOR[i] = Globals.POSTERIOR[i - 1];
                 }
+                Globals.POSTERIOR[4] = 0;
 
                 for (int i = 18; i <= 21; i++) {
                     Globals.POSTERIOR[i] = 0;
@@ -126,16 +128,17 @@ public class ActivityListener implements SensorEventListener {
                 Globals.POSTERIOR[13] = 0;
                 Globals.POSTERIOR[14] = 0;
                 Globals.POSTERIOR[15] = 0;
+                Globals.POSTERIOR[17] = 0;
             } else if (direction == 2) { // WEST
                 for (int i = 1; i <= 3; i++) {
                     Globals.POSTERIOR[i] = 0;
                 }
 
-                for (int i = 4; i <= 16; i--) {
+                for (int i = 4; i <= 16; i++) {
                     Globals.POSTERIOR[i + 1] = Globals.POSTERIOR[i];
                 }
 
-                for (int i = 18; i <= 21; i++) {
+                for (int i = 17; i <= 21; i++) {
                     Globals.POSTERIOR[i] = 0;
                 }
             } else if (direction == 3) { // North
@@ -159,6 +162,7 @@ public class ActivityListener implements SensorEventListener {
                 Globals.POSTERIOR[13] = 0;
                 Globals.POSTERIOR[14] = 0;
                 Globals.POSTERIOR[15] = 0;
+                Globals.POSTERIOR[17] = 0;
                 Globals.POSTERIOR[19] = 0;
                 Globals.POSTERIOR[20] = 0;
                 Globals.POSTERIOR[21] = 0;
@@ -169,16 +173,21 @@ public class ActivityListener implements SensorEventListener {
                 sum += Globals.POSTERIOR[i];
             }
 
-            if (sum == 0) {
-                for (int i = 1; i <= 21; i++) {
-                    Globals.POSTERIOR[i] = 1f / 21f;
-                }
-            } else {
-                for (int i = 1; i <= 21; i++) {
-                    Globals.POSTERIOR[i] /= sum;
-                }
+            for (int i = 1; i <= 21; i++) {
+                Globals.POSTERIOR[i] /= sum;
             }
         }
+
+        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
+            int id = Globals.RESOURCES.getIdentifier("room" + i, "id", Globals.PACKAGE_NAME);
+            setRoom((TextView) Globals.VIEW.findViewById(id), Globals.POSTERIOR[i]);
+        }
+    }
+
+    private void setRoom(TextView room, float probability) {
+        int p = Math.round(probability * 100);
+        room.setBackgroundColor(Globals.RESOURCES.getColor(Globals.getColor(p)));
+        room.setText(p + "");
     }
 
     @Override

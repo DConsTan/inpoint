@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import nl.tudelft.inpoint.R;
 import nl.tudelft.inpoint.training.ResetController;
 
 public class LocalizationFragment extends Fragment {
+
+    private ActivityListener activityListener;
+    private DirectionListener directionListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +39,15 @@ public class LocalizationFragment extends Fragment {
         setDirectionListener();
         setActivityListener();
         setMotionListener();
+    }
+
+    public void onPause() {
+        super.onPause();
+        destroyLocalizeListener();
+        destroyMotionListener();
+        destroyDirectionListener();
+        destroyActivityListener();
+        destroyResetListener();
     }
 
     private void initRooms() {
@@ -64,9 +77,19 @@ public class LocalizationFragment extends Fragment {
         button.setOnClickListener(controller);
     }
 
+    private void destroyLocalizeListener() {
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabLocalize);
+        button.setOnClickListener(null);
+    }
+
     private void setResetListener() {
         FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabReset);
         button.setOnClickListener(new ResetController(getView()));
+    }
+
+    private void destroyResetListener() {
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabReset);
+        button.setOnClickListener(null);
     }
 
     private void setDirectionListener() {
@@ -74,7 +97,7 @@ public class LocalizationFragment extends Fragment {
         Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         Sensor mMagnetic = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        DirectionListener directionListener = new DirectionListener();
+        directionListener = new DirectionListener();
 
         mSensorManager.registerListener(directionListener, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
         mSensorManager.registerListener(directionListener, mMagnetic, SensorManager.SENSOR_DELAY_UI);
@@ -83,15 +106,39 @@ public class LocalizationFragment extends Fragment {
         button.setOnClickListener(directionListener);
     }
 
+    private void destroyDirectionListener() {
+        SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor mMagnetic = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        mSensorManager.unregisterListener(directionListener, mAccelerometer);
+        mSensorManager.unregisterListener(directionListener, mMagnetic);
+
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabDirection);
+        button.setOnClickListener(null);
+    }
+
     private void setActivityListener() {
         SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(new ActivityListener(), mAccelerometer, mSensorManager.SENSOR_DELAY_FASTEST);
+        activityListener = new ActivityListener();
+        mSensorManager.registerListener(activityListener, mAccelerometer, mSensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    private void destroyActivityListener() {
+        SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.unregisterListener(activityListener, mAccelerometer);
     }
 
     private void setMotionListener() {
         FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabMotion);
         button.setOnClickListener(new MotionListener());
+    }
+
+    private void destroyMotionListener() {
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fabMotion);
+        button.setOnClickListener(null);
     }
 
 }

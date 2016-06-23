@@ -10,10 +10,6 @@
             android:id="@+id/nav_training"
             android:icon="@drawable/ic_action_save"
             android:title="Training" />
-        <item
-            android:id="@+id/nav_activity_training"
-            android:icon="@drawable/ic_action_save"
-            android:title="Activity Training" />
     </group>
 
 </menu>
