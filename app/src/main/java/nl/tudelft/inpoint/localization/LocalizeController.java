@@ -21,7 +21,7 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
 
     private View view;
     private boolean scanning = false;
-    private static final int STEP_SIZE = 4;
+    private static final int STEP_SIZE = 3;
 
     public LocalizeController(View view) {
         this.view = view;
@@ -93,8 +93,6 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
             return data;
         for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
             data[i] = data[i] / sum;
-            if (data[i] > Globals.MAX_PRIOR)
-                Globals.MAX_PRIOR = data[i];
         }
 
         return data;
@@ -167,6 +165,11 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
             setStatus("CHANGED");
             scanning = false;
 
+            for(float f : Globals.POSTERIOR) {
+                if (f > Globals.MAX_PRIOR) {
+                    Globals.MAX_PRIOR = f;
+                }
+            }
             Log.d("Max probability: ", Globals.MAX_PRIOR + "");
 
             if (Globals.MAX_PRIOR < 0.9 && Globals.WIFI_MANAGER.startScan()) {
