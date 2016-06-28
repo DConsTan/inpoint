@@ -70,27 +70,33 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
         }
     }
 
-    private void applyBayes(float[] probabilities) {
+    private float[] applyBayes(float[] probabilities) {
 //        float sum = 0;
 //        for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++)
 //            sum += probabilities[i];
 //        if (sum == 0) return;
 
+        float[] data = new float[ Globals.NUMBER_OF_ROOMS + 1 ];
+
         for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++)
-            Globals.POSTERIOR[i] = Globals.POSTERIOR[i] * probabilities[i];
+            data[i] = Globals.POSTERIOR[i] * probabilities[i];
+
+        return data;
     }
 
-    private void normalizePosterior() {
+    private float[] normalizePosterior( float[] data ) {
         float sum = 0;
         for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++)
-            sum += Globals.POSTERIOR[i];
+            sum += data[i];
         if (sum == 0)
-            return;
+            return data;
         for (int i = 1; i <= Globals.NUMBER_OF_ROOMS; i++) {
-            Globals.POSTERIOR[i] = Globals.POSTERIOR[i] / sum;
-            if (Globals.POSTERIOR[i] > Globals.MAX_PRIOR)
-                Globals.MAX_PRIOR = Globals.POSTERIOR[i];
+            data[i] = data[i] / sum;
+            if (data[i] > Globals.MAX_PRIOR)
+                Globals.MAX_PRIOR = data[i];
         }
+
+        return data;
     }
 
     private void showPosterior() {
@@ -120,22 +126,38 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
                     list.add(s);
             if (list.isEmpty())
                 list = unfilteredList;
+
             Collections.sort(list, new ScanResultComparator());
             displayTopMAC(list);
+
+            ArrayList<float[]> temp = new ArrayList<>();
+
             Iterator<ScanResult> iter = list.iterator();
-            while (iter.hasNext() && Globals.MAX_PRIOR <= 0.95) {
+            while (iter.hasNext() /* && Globals.MAX_PRIOR <= 0.95 */ ) {
                 ScanResult r = iter.next();
                 String mac = SQLiteHelper.encodeMAC(r.BSSID);
-                float[][] statistics = Globals.DATABASE.getStatisticalParameters(mac);
-                debugStatisticalParameters(statistics);
+
                 int level = -r.level;
                 float[] probabilities = Globals.DATABASE.getRSSProbabilities(mac, level);
                 if (probabilities != null) {
-                    applyBayes(probabilities);
-                    normalizePosterior();
-                    showPosterior();
+                    float[] result = applyBayes(probabilities);
+                    temp.add(normalizePosterior(result));
                 }
             }
+
+            float[] averagePosterior = new float[Globals.NUMBER_OF_ROOMS + 1];
+            for (float[] p : temp) {
+                for ( int i = 0; i <= Globals.NUMBER_OF_ROOMS; i++ ){
+                    averagePosterior[i] += p[i];
+                }
+            }
+
+            for ( int i = 0; i <= Globals.NUMBER_OF_ROOMS; i++ ){
+                averagePosterior[i] /= temp.size();
+            }
+
+            showPosterior();
+
             setStatus("CHANGED");
             scanning = false;
         }
