@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import nl.tudelft.inpoint.Globals;
 import nl.tudelft.inpoint.R;
@@ -17,8 +18,11 @@ public class ActivityListener implements SensorEventListener {
 
     private long lastUpdate = 0;
     private ArrayList<Float> values = new ArrayList<>();
+    private ArrayList<Integer> directions = new ArrayList<>();
+    private ArrayList<Boolean> walking = new ArrayList<>();
     private long startWalking = 0;
     private long endWalking = 0;
+    private static final float CONFIDENCE_LEVEL = 0.75f;
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -34,62 +38,80 @@ public class ActivityListener implements SensorEventListener {
 
                 float eucl = x * x + y * y + z * z;
 
+                float variance = 0f;
+
                 if (values.size() == 75) {
-                    float variance = calculateVariance(values);
+                    variance = calculateVariance(values);
                     TextView varianceView = (TextView) Globals.VIEW.findViewById(R.id.variance);
                     varianceView.setText(variance + "");
-
-                    onMotionChange(variance);
-
                     values.remove(0);
+
+                    isWalking(variance);
+                }
+
+                if (walking.size() == 310) {
+
+                    if (Globals.RECORDING_MOTION) {
+                        moveProbabilities(1);
+                    }
+
+                    if (!walking.isEmpty()) {
+                        walking.remove(0);
+                        directions.remove(0);
+                    }
                 }
 
                 values.add(eucl);
+                directions.add(Globals.getDirection());
+                walking.add(Globals.WALKING);
 
                 lastUpdate = curTime;
             }
         }
     }
 
-    private void onMotionChange(float variance) {
+    private boolean isWalking(float variance) {
         FloatingActionButton button = (FloatingActionButton) Globals.VIEW.findViewById(R.id.fabMotion);
 
         if (variance < 10) { // Standing
             button.setImageResource(R.drawable.ic_directions_walk);
-
-            if (Globals.RECORDING_MOTION && Globals.WALKING) {
-                endWalking = System.currentTimeMillis();
-                computeDistanceWalked();
-            }
-
             Globals.WALKING = false;
-
-            startWalking = System.currentTimeMillis();
-
+            return false;
         } else { // Walking
             button.setImageResource(R.drawable.ic_directions_run);
             Globals.WALKING = true;
-
-            if (!Globals.RECORDING_MOTION) {
-                startWalking = System.currentTimeMillis();
-            }
-
+            return true;
         }
     }
 
-    private void computeDistanceWalked() {
-        long durationWalking = endWalking - startWalking;
-        int numberOfRoomsMoved = Math.round(durationWalking / 3000);
-        if (durationWalking > 3000) {
-            TextView movedView = (TextView) Globals.VIEW.findViewById(R.id.movedView);
-            movedView.setText(numberOfRoomsMoved + " " + Globals.getDirection());
-            moveProbabilities(numberOfRoomsMoved);
+    private int direction() {
+        int directionCount = 0;
+        int direction = -1;
+        for (int i = 0; i < 4; i++) {
+            int count = Collections.frequency(directions, i);
+            if (count > directionCount) {
+                directionCount = count;
+                direction = i;
+            }
         }
+        float confidence = ((float) directionCount) / directions.size();
+        if (confidence < CONFIDENCE_LEVEL)
+            return -1;
+        return direction;
+    }
+
+    private boolean hasWalked() {
+        int walkCount = Collections.frequency(walking, true);
+        return (float) walkCount / (float) walking.size() > CONFIDENCE_LEVEL;
     }
 
     private void moveProbabilities( int numberOfRoomsMoved ) {
-        int direction = Globals.getDirection();
+        int direction = direction();
 
+        if (direction == -1 || !hasWalked()) {
+            return;
+        }
+        
         for ( int x = 0; x < numberOfRoomsMoved; x++ ) {
             if (direction == 0) { // EAST
                 for (int i = 1; i <= 3; i++) {
@@ -135,7 +157,7 @@ public class ActivityListener implements SensorEventListener {
                 }
 
                 for (int i = 4; i <= 16; i++) {
-                    Globals.POSTERIOR[i + 1] = Globals.POSTERIOR[i];
+                    Globals.POSTERIOR[i] = Globals.POSTERIOR[i + 1];
                 }
 
                 for (int i = 17; i <= 21; i++) {
@@ -182,6 +204,9 @@ public class ActivityListener implements SensorEventListener {
             int id = Globals.RESOURCES.getIdentifier("room" + i, "id", Globals.PACKAGE_NAME);
             setRoom((TextView) Globals.VIEW.findViewById(id), Globals.POSTERIOR[i]);
         }
+
+        directions.clear();
+        walking.clear();
     }
 
     private void setRoom(TextView room, float probability) {
