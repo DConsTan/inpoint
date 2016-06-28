@@ -21,6 +21,7 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
 
     private View view;
     private boolean scanning = false;
+    private static final int STEP_SIZE = 4;
 
     public LocalizeController(View view) {
         this.view = view;
@@ -128,40 +129,50 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
                 list = unfilteredList;
 
             Collections.sort(list, new ScanResultComparator());
-            displayTopMAC(list);
+//            displayTopMAC(list);
 
             ArrayList<float[]> temp = new ArrayList<>();
 
-            Iterator<ScanResult> iter = list.iterator();
-            while (iter.hasNext() /* && Globals.MAX_PRIOR <= 0.95 */ ) {
-                ScanResult r = iter.next();
-                String mac = SQLiteHelper.encodeMAC(r.BSSID);
+            for (int j = 0; j < list.size() - STEP_SIZE; j += STEP_SIZE) {
+                temp.clear();
+                for (int k = j; k < j + STEP_SIZE; k++) {
+                    ScanResult r = list.get(k);
 
-                int level = -r.level;
-                float[] probabilities = Globals.DATABASE.getRSSProbabilities(mac, level);
-                if (probabilities != null) {
-                    float[] result = normalizePosterior(applyBayes(probabilities));
-                    temp.add(result);
+                    String mac = SQLiteHelper.encodeMAC(r.BSSID);
+
+                    int level = -r.level;
+                    float[] probabilities = Globals.DATABASE.getRSSProbabilities(mac, level);
+                    if (probabilities != null) {
+                        float[] result = normalizePosterior(applyBayes(probabilities));
+                        temp.add(result);
+                    }
                 }
-            }
 
-            float[] averagePosterior = new float[Globals.NUMBER_OF_ROOMS + 1];
-            for (float[] p : temp) {
+                float[] averagePosterior = new float[Globals.NUMBER_OF_ROOMS + 1];
+                for (float[] p : temp) {
+                    for ( int i = 0; i <= Globals.NUMBER_OF_ROOMS; i++ ){
+                        averagePosterior[i] += p[i];
+                    }
+                }
+
                 for ( int i = 0; i <= Globals.NUMBER_OF_ROOMS; i++ ){
-                    averagePosterior[i] += p[i];
+                    Globals.POSTERIOR[i] = averagePosterior[i] / temp.size();
                 }
+
+                Globals.POSTERIOR = normalizePosterior(Globals.POSTERIOR);
+
+                showPosterior();
             }
-
-            for ( int i = 0; i <= Globals.NUMBER_OF_ROOMS; i++ ){
-                Globals.POSTERIOR[i] = averagePosterior[i] / temp.size();
-            }
-
-            Globals.POSTERIOR = normalizePosterior(Globals.POSTERIOR);
-
-            showPosterior();
 
             setStatus("CHANGED");
             scanning = false;
+
+            Log.d("Max probability: ", Globals.MAX_PRIOR + "");
+
+            if (Globals.MAX_PRIOR < 0.9 && Globals.WIFI_MANAGER.startScan()) {
+                setStatus("SCANNING");
+                scanning = true;
+            }
         }
     }
 }
