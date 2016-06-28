@@ -140,8 +140,8 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
                 int level = -r.level;
                 float[] probabilities = Globals.DATABASE.getRSSProbabilities(mac, level);
                 if (probabilities != null) {
-                    float[] result = applyBayes(probabilities);
-                    temp.add(normalizePosterior(result));
+                    float[] result = normalizePosterior(applyBayes(probabilities));
+                    temp.add(result);
                 }
             }
 
@@ -153,8 +153,10 @@ public class LocalizeController extends BroadcastReceiver implements View.OnClic
             }
 
             for ( int i = 0; i <= Globals.NUMBER_OF_ROOMS; i++ ){
-                averagePosterior[i] /= temp.size();
+                Globals.POSTERIOR[i] = averagePosterior[i] / temp.size();
             }
+
+            Globals.POSTERIOR = normalizePosterior(Globals.POSTERIOR);
 
             showPosterior();
 
